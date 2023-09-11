@@ -598,7 +598,7 @@ class AutoReseed
                 // 限速
                 $extra_options = array();
                 if (!empty(self::$_sites[$siteName]['upLimit'])) {
-                    $extra_options['upLimit'] = trim(self::$_sites[$siteName]['upLimit']);
+                    $extra_options['upLimit'] = strval(intval(trim(self::$_sites[$siteName]['upLimit'])) * 1024 * 1024) ;
                 }
                 // 临时种子连接（会写入辅种日志）
                 $_url = $protocol . self::$sites[$sid]['base_url'] . '/' . $download_page;
