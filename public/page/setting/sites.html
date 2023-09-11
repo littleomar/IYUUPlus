@@ -59,6 +59,12 @@
       <tip>代理域名或者镜像域名(仅域名部分，例如：pt.baidu.com)，如果不理解请勿设置。</tip>
     </div>
   </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">上传限速</label>
+    <div class="layui-input-block">
+      <input type="text" name="{{d.upLimit.name}}" {{ d.upLimit.verify ? 'lay-verify="'+d.upLimit.verify+'"' : '' }} lay-reqtext="{{d.upLimit.name}}不能为空" placeholder="请输入{{d.upLimit.name}}" class="layui-input">
+    </div>
+  </div>
   {{# if (d.cookie.visible === true) { }}
   <div class="layui-form-item">
     <label class="layui-form-label {{ d.cookie.required ? 'required' : '' }}">{{d.cookie.name}}</label>
@@ -196,6 +202,7 @@
     sites_sel_action = function(site = '', site_field_view = null) {
       let rule = {
           cookie: {name: 'cookie', visible: true, required: false, desc: '', verify: '', reqtext: ''}
+          ,upLimit: {name: 'upLimit', visible: true, required: false, desc: '', verify: '', reqtext: ''}
           ,mirror: {name: 'mirror', visible: true, required: false, desc: '', verify: '', reqtext: ''}
           ,passkey: {name: 'passkey', visible: true, required: true, desc: '', verify: 'required', reqtext: ''}
           ,rsskey: {name: 'rsskey', visible: false, required: true, desc: '', verify: 'required', reqtext: ''}

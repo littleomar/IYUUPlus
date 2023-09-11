@@ -595,7 +595,11 @@ class AutoReseed
                     echo '您已配置当前站点的镜像域名：' . self::$_sites[$siteName]['mirror'] . PHP_EOL;
                     self::$sites[$sid]['base_url'] = self::$_sites[$siteName]['mirror'];
                 }
-
+                // 限速
+                $extra_options = array();
+                if (!empty(self::$_sites[$siteName]['upLimit'])) {
+                    $extra_options['upLimit'] = trim(self::$_sites[$siteName]['upLimit']);
+                }
                 // 临时种子连接（会写入辅种日志）
                 $_url = $protocol . self::$sites[$sid]['base_url'] . '/' . $download_page;
                 /**
@@ -760,7 +764,7 @@ class AutoReseed
                 // 把种子URL或元数据，推送给下载器
                 echo '推送种子：' . $_url . PHP_EOL;
                 // 成功true | 失败false
-                $ret = self::add($clientKey, $url, $downloadDir);
+                $ret = self::add($clientKey, $url, $downloadDir, $extra_options);
 
                 // 规范日志内容
                 $log = 'clients_' . $clientKey . "【" . self::$links[$clientKey]['_config']['name'] . "】" . PHP_EOL . $downloadDir . PHP_EOL . $downloadUrl . PHP_EOL . PHP_EOL;
@@ -1200,6 +1204,10 @@ class AutoReseed
                     }
                     // 是否创建根目录
                     $extra_options['root_folder'] = static::$links[$clientKey]['root_folder'] ? 'true' : 'false';
+                    // 是否限速
+                    // if (isset($extra_options['upLimit'])) {
+                    //     $extra_options['upLimit'] = $extra_options['upLimit'] ? 'true' : 'false';
+                    // }
                     if ($is_url) {
                         $result = static::getRpc($clientKey)->add($torrent, $save_path, $extra_options);            // URL添加
                     } else {

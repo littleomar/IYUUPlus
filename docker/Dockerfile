@@ -77,9 +77,9 @@ RUN set -ex \
         php7-zip \
         php7-zlib \
         php7-xml \
-        && git clone https://github.com/ledccn/IYUUPlus.git /IYUU \
+        && git clone https://github.com/littleomar/IYUUPlus.git /IYUU \
         # && git clone https://gitee.com/ledc/iyuuplus.git /IYUU \
-        && git remote set-url origin https://gitee.com/ledc/iyuuplus.git \
+        && git remote set-url origin https://github.com/littleomar/IYUUPlus.git \
         && git config --global pull.ff only \
         && apk del --purge *-dev \
         # install latest composer
